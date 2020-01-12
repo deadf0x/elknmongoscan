@@ -1,4 +1,4 @@
-# ELK and MGBD scanner
+# ELK and MGDB scanner
 
 Req.: hydra, nmap, masscan, custom nmap script: elastic.nse (copy to nmap script folder, e.g - /usr/share/nmap/scripts/)
 
