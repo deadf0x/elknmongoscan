@@ -1,6 +1,14 @@
 # ELK and MGDB scanner
 
 Req.: hydra, nmap, masscan, custom nmap script: elastic.nse (copy to nmap script folder, e.g - /usr/share/nmap/scripts/)
+Install custom hydra build:
+
+apt install libmongoc-dev; (enable mongo support)
+git clone https://github.com/vanhauser-thc/thc-hydra.git;
+cd thc-hydra;
+./configure;
+ make install;
+
 
 Usage:  ./scan.sh port host(s), example:./scan.sh 27017 192.168.0.0/24,127.0.0.1,172.16.0.1
 

