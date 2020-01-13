@@ -8,3 +8,9 @@ If you want bruteforce secured elk instance after scan, fill usernames and passw
 file ./LOGINS for usernames (default elastic)
 file ./PASSWORDS for passwords
 
+#TODO
+- Mongodb bruteforce
+- Telegram alerts:
+	findings
+	succefull bruteforced
+
