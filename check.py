@@ -8,7 +8,9 @@ from dtls import do_patch, sslconnection
 def open_socket(host, port):
     sock = ssl.wrap_socket(socket(AF_INET, SOCK_DGRAM))
     setattr(sock, "ssl_version", sslconnection.PROTOCOL_DTLSv1)
+    sock.settimeout(2)
     sock.connect((host, port))
+    sock.settimeout(None)
     return sock
 
 def create_packet(fragment, packet_id, fragment_id, number_of_fragments, fragment_length):

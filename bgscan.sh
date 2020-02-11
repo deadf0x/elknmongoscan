@@ -24,24 +24,24 @@ fi
 out=$( echo $2 | sed 's/\///g' | sed 's/\,//g' | sed 's/\.//g' )
 
 #backup outfile if same targets
-mv -f $out.outbg $out.outbg_`date +%s`
+#mv -f $out.outbg $out.outbg_`date +%s`
 
 #clean outfile
-echo "" > $out.outbg 
+#echo "" > $out.outbg 
 
 #Scan targets in background
 
-if [[ "$1" == "3391" ]]
+#if [[ "$1" == "3391" ]]
 
-	then masscan -p U:$1 -iL $2 -oG $out.outbg &
-	sleep 300
-fi
+#	then masscan -p U:$1 -iL $2 -oG $out.outbg &
+#	sleep 300
+#fi
 
 
-while ps -aux | grep masscan | grep -v "grep" | awk {'print $2'}
-do
+#while ps -aux | grep masscan | grep -v "grep" | awk {'print $2'}
+#do
 
-        grep -Eo '([0-9]*\.){3}[0-9]*' $targets  | while read line
+        grep -Eo '([0-9]*\.){3}[0-9]*' $out.outbg  | while read line
 	
 	        do
 			 python check.py $line 3391
@@ -49,10 +49,10 @@ do
 	        done
 
 
-done
+#done
 
 #check after masscan stopped
-while grep -qEo '([0-9]*\.){3}[0-9]*' $out.out
+while grep -qEo '([0-9]*\.){3}[0-9]*' $out.outbg
 do
 
 grep -Eo '([0-9]*\.){3}[0-9]*' $targets  | while read line

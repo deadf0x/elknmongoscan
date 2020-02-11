@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+
+
+cd /opt/scan/ &
+
+case "$1" in
+  start)
+	/opt/scan/scan.sh 9200 targets
+	/opt/scan/scan.sh 27017 targets
+    ;;
+  stop)
+        killall scan.sh
+    ;;
+  *)
+    exit 1
+    ;;
+esac
+
+
