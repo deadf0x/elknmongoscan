@@ -45,20 +45,21 @@ mv -f $out.out $out.out_`date +%s`
 echo "" > $out.out 
 
 #Scan targets in background
-
+cd /opt/scan
 masscan -p $1 -iL $2 -oG $out.out &
 
 sleep 300
 
 while ps -aux | grep masscan | grep -v "grep" | awk {'print $2'}
 do
+	cd /opt/scan
 	./brute.sh $1 $out.out 
 done
 
 #check after masscan stopped
 while grep -qEo '([0-9]*\.){3}[0-9]*' $out.out
 do
-
+	cd /opt/scan
         ./brute.sh $1 $out.out
 done
 

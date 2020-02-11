@@ -5,6 +5,7 @@ After=network.target network-online.target
 
 [Service]
 Type=simple
+WorkingDirectory=/opt/scan
 ExecStart=/opt/scan/control start
 Restart=always
 
