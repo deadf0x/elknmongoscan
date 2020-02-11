@@ -1,0 +1,12 @@
+[Unit]
+Description=ELK_MDB_Scanner
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/scan/control start
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
