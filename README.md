@@ -1,8 +1,8 @@
 # ELK and MGDB scanner
 
 cd /opt
-git clone git@github.com:medlynx/new.git
-cd new && ./install.sh
+git clone ...
+./install.sh
 
 Req.: hydra, nmap, masscan, custom nmap script: elastic.nse (copy to nmap script folder, e.g - /usr/share/nmap/scripts/)
 Install custom hydra build:
